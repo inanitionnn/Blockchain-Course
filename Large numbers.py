@@ -4,7 +4,7 @@ import decimal
 
 # На жаль не зміг реалізувати генерацію ключів більш ніж на 1024 біти. Буду радий почути якісь поради
 
-def fTask(bit):
+def fTask(bit): #Перше завдання
     print("\nFirst Task.\n")
     print("Number of key variants:")
     variants = {}
@@ -14,7 +14,7 @@ def fTask(bit):
     return variants
 
 
-def sTask(bit, vars):
+def sTask(bit, vars): #Друге завдання
     print("\nSecond Task. \n")
     keys = []
     print("Generated keys:")
@@ -24,7 +24,7 @@ def sTask(bit, vars):
     print(keys)
     return keys
     
-def tTask(bit,keys):
+def tTask(bit,keys): #Третє завдання
     print("\nThird Task.\n")
     print("Key brute force time")
     passwords = []
@@ -44,7 +44,7 @@ def tTask(bit,keys):
         print(str(end)+" sec")
     print(f"\nPasswords: {passwords}")
 
-def main():
+def main(): 
     bit = [2**i for i in range (3,11)] 
     vars = fTask(bit)
     keys = sTask(bit, vars)
