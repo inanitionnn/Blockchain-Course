@@ -1,6 +1,3 @@
-def messToHex(message):
-  hexVal = hex(int(str.encode(message).hex(),16))
-  return hexVal[2:]
 def messInBits(message):
   messInBytes = str.encode(message)
   messInBits = ""
@@ -9,22 +6,29 @@ def messInBits(message):
     fullStrByte = "0" * (8 - len(strByte)) + strByte
     messInBits += fullStrByte
   return messInBits
+
 def binToHex(b):
   return hex(int(b,2))[2:]
-def strToInt(string):
+
+def strToInt(string): #hex string to int
   return int(string, 16)
 
-def hexXor(a, b):    # xor two hex strings of the same length
+def hexXor(a, b):   
   return "".join(["%x" % (int(x,16) ^ int(y,16)) for (x, y) in zip(a, b)])
-def hexOr(a, b):    # xor two hex strings of the same length
+
+def hexOr(a, b):    
   return "".join(["%x" % (int(x,16) | int(y,16)) for (x, y) in zip(a, b)])
-def hexAnd(a, b):    # xor two hex strings of the same length
+
+def hexAnd(a, b):   
   return "".join(["%x" % (int(x,16) & int(y,16)) for (x, y) in zip(a, b)])
+
 def hexNot(a):
   return hex(~int(a,16))[3:]
+
 def leftRotate(x, n):
-    x = strToInt(x)
-    return hex((x << n)|(n >> (32 - n)))[2:]
+  x = strToInt(x)
+  return hex((x << n)|(n >> (32 - n)))[2:]
+
 def getSHA1Hash(message):
   h0 = "67452301"
   h1 = "EFCDAB89"
@@ -33,12 +37,13 @@ def getSHA1Hash(message):
   h4 = "C3D2E1F0" 
   m = messInBits(message)
   ml = len(m)
-  
-  if ml / 447 % 1 > 0:
-    r = ml // 447 + 1
-  else: r = ml // 447
   mod = 1<<32
-  for i in range(r):
+
+  if ml / 447 % 1 > 0: 
+    rng = ml // 447 + 1
+  else: rng = ml // 447
+
+  for i in range(rng):
     currChunk512 = (m[447 * i : 447 * (i + 1)]) 
     fullChunk512 = currChunk512 + "1" + "0" * (447 - len(currChunk512)) + "0" * (66 - len(bin(ml))) + bin(ml)[2:]
     chunks32 = []
@@ -82,6 +87,4 @@ def getSHA1Hash(message):
       h4 = hex((strToInt(h4) + strToInt(e))%mod)[2:]
   return hex((strToInt(h0)<<128) | (strToInt(h1)<<96) | (strToInt(h2)<<64) | (strToInt(h3)<<32) | strToInt(h4))[2:]
   
-  
-
 print(getSHA1Hash("abc"))
