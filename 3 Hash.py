@@ -49,7 +49,7 @@ def getSHA1Hash(message):
     chunks32 = []
     for j in range(16):
       chunks32.append(binToHex(fullChunk512[32 * j : 32 * (j + 1)]))
-    for n in range(16, 40):
+    for n in range(16, 80):
       chunks32.append(leftRotate(hexXor(hexXor(chunks32[n-3], chunks32[n-8]), hexXor(chunks32[n-14],chunks32[n-16])), 5))
       a = h0
       x = h1
@@ -57,7 +57,7 @@ def getSHA1Hash(message):
       z = h3
       e = h4
       
-      for k in range(39): 
+      for k in range(79): 
         if (0 <= k <= 19):
           f = hexOr(hexAnd(x, y), hexAnd(hexNot(x), z)) 
           # f = (b & c) | ((~b) & d)
