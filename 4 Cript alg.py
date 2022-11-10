@@ -18,9 +18,9 @@ print("key: firstkey")
 print("ciphertext:",vigener("lorem ipsum", "firstkey"))
 # ===========================================================================================
 # RSA
-def mod_inverse(a, m):
+def mod_inverse(e, m):
     for x in range(1, m):
-        if (a * x) % m == 1:
+        if (e * x) % m == 1:
             return x
     return -1
 print("===========")
